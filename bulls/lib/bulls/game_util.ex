@@ -59,11 +59,13 @@ defmodule Bulls.GameUtil do
     digit1 = String.slice(attempt, 0..0)
     l = String.length(attempt)
     set_l = MapSet.size(MapSet.new(String.graphemes(attempt)))
+    notAllInt = Enum.any?(String.graphemes(attempt), fn(x) -> Float.parse(x) == :error end)
 
     cond do
       digit1 == "0" -> false
       l != 4 -> false
       set_l != 4 -> false
+      notAllInt -> false
       true -> true
     end
   end
